@@ -1,10 +1,21 @@
-# ALMGuard
+# ALMGuard: Safety Shortcuts and Where to Find Them as Guardrails for Audio-Language Models
 
-This is the official codebase for our paper ALMGuard, providing a full implementation example on Qwen2-Audio. It includes defense training, inference, and benchmark evaluation.
+<p align="left">
+  <a href="https://arxiv.org/abs/2510.26096"><img src="https://img.shields.io/badge/Paper-arXiv-b31b1b.svg"></a>
+  <a href="https://huggingface.co/datasets/WeifeiJin/AdvBench-Audio"><img src="https://img.shields.io/badge/Dataset-🤗%20HF-yellow"></a>
+  <a href="https://github.com/WeifeiJin/ALMGuard"><img src="https://img.shields.io/badge/Code-GitHub-black"></a>
+</p>
+
+This is the official codebase for our paper [**ALMGuard: Safety Shortcuts and Where to Find Them as Guardrails for Audio-Language Models**](https://arxiv.org/abs/2510.26096).
+ It includes defense training, inference, and benchmark evaluation on **Qwen2-Audio**.
+
+📢 **Dataset Release**
+ We release the **AdvBench-Audio** dataset on Hugging Face:
+ 👉 https://huggingface.co/datasets/WeifeiJin/AdvBench-Audio
+
+------
 
 ## 🔧 Environment Setup
-
-Create the conda environment:
 
 ```bash
 conda create -n ALMGuard python=3.10
@@ -12,42 +23,53 @@ conda activate ALMGuard
 pip install -r requirements.txt
 ```
 
+------
+
 ## 📁 Datasets
 
-1. We provide 100 examples of AdvBench-Audio described in the paper, located in: `datasets/advbench_audios`. **Note:** Currently, we only provide a small subset of examples. The full dataset will be released after the paper is accepted.
-2. For benign samples on the automatic speech recognition (ASR) task from the [LibriSpeech](https://www.openslr.org/12) `dev-clean` subset, we evaluate on 500 audio clips, and provide 20 example clips in: `datasets/librispeech_audios`.
-   
-3. For AIR-Bench-Chat, we provide download scripts. Please run the following command to download the data: `python datasets/load_data.py`.
+### 🔥 AdvBench-Audio (ours)
+
+We provide 100 examples of **AdvBench-Audio** in `datasets/advbench_audios`.
+ The **full dataset** is hosted on Hugging Face:
+
+**HuggingFace:** https://huggingface.co/datasets/WeifeiJin/AdvBench-Audio
+
+### ✅ Other Data
+
+- **Benign ASR** samples (LibriSpeech `dev-clean`) — 20 audio clips in `datasets/librispeech_audios`
+- **AIR-Bench-Chat** — run `python datasets/load_data.py` to download
+
+------
 
 ## 🧪 Training
 
-To train Shortcut Activation Perturbation (SAP), run:
+To train **Shortcut Activation Perturbation (SAP)**:
 
 ```bash
 python main.py
 ```
 
-> Note: You need adversarial jailbreak audios for training. You may use your own method or the provided samples under:
+> Ensure adversarial audios exist under:
+
 - `results/advwave_suffix` (AdvWave)
 - `results/advwave_p` (AdvWave-P)
 - `results/pair_audio` (PAIR-Audio)
 
-Also ensure that the ``Whisper-large-v3` model is available in the `models/` directory, or specify it using the `--asr_path` argument.
+Also ensure `Whisper-large-v3` is available in `models/` or pass `--asr_path`.
 
-We also provide a precomputed M-GSM at: `mask/global_saliency.npz`. This mask is used by default in the training scripts.
+M-GSM saliency mask is provided: `mask/global_saliency.npz`.
+
+------
+
 ## 📊 Evaluation
 
-### Defense Performance
-
-Place the trained **Shortcut Activation Perturbation (SAP)** at: `results/prot_qwen/perturb_mel.pth`.
-
-To perform evaluation with this protection enabled, run:
+### Defense Evaluation
 
 ```bash
 python eval_qwen.py
 ```
 
-### ASR Task (LibriSpeech)
+### ASR Task
 
 ```bash
 python eval_asr.py
@@ -61,13 +83,41 @@ python AIR-bench/score_chat.py
 python AIR-bench/cal_score.py
 ```
 
+------
+
 ## 🙏 Acknowledgments
 
 This repository is built upon the following resources:
 
 - [AdvWave (ICLR 2024)](https://openreview.net/forum?id=0BujOfTqab)
 - [Qwen2-Audio](https://github.com/QwenLM/Qwen2-Audio)
-- [Whisper (large-v3)](https://huggingface.co/openai/whisper-large-v3)
-- [AdvBench Dataset](https://huggingface.co/datasets/walledai/AdvBench)
-- [LibriSpeech Dataset](https://www.openslr.org/12)
+- [Whisper-large-v3](https://huggingface.co/openai/whisper-large-v3)
+- [AdvBench](https://huggingface.co/datasets/walledai/AdvBench)
+- [LibriSpeech](https://www.openslr.org/12)
 - [AIR-Bench](https://github.com/OFA-Sys/AIR-Bench)
+
+------
+
+## 📎 Citation
+
+If you find this work useful, please cite our paper:
+
+```
+@inproceedings{jin2025almguard,
+  title={ALMGuard: Safety Shortcuts and Where to Find Them as Guardrails for Audio-Language Models},
+  author={Jin, Weifei and Cao, Yuxin and Su, Junjie and Xue, Minhui and Hao, Jie and Xu, Ke and Dong, Jin Song and Wang, Derui},
+  booktitle={NeurIPS},
+  year={2025}
+}
+```
+
+Dataset reference:
+
+```
+@dataset{advbench_audio_2025,
+  title={AdvBench-Audio},
+  author={Jin, Weifei and Cao, Yuxin and Su, Junjie and Xue, Minhui and Hao, Jie and Xu, Ke and Dong, Jin Song and Wang, Derui},
+  year={2025},
+  howpublished={\url{https://huggingface.co/datasets/WeifeiJin/AdvBench-Audio}}
+}
+```
