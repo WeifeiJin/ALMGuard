@@ -110,14 +110,3 @@ If you find this work useful, please cite our paper:
   year={2025}
 }
 ```
-
-Dataset reference:
-
-```
-@dataset{advbench_audio_2025,
-  title={AdvBench-Audio},
-  author={Jin, Weifei and Cao, Yuxin and Su, Junjie and Xue, Minhui and Hao, Jie and Xu, Ke and Dong, Jin Song and Wang, Derui},
-  year={2025},
-  howpublished={\url{https://huggingface.co/datasets/WeifeiJin/AdvBench-Audio}}
-}
-```
