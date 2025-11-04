@@ -27,7 +27,7 @@ pip install -r requirements.txt
 
 ## 📁 Datasets
 
-### 🔥 AdvBench-Audio (ours)
+### 🔥 AdvBench-Audio
 
 We provide 100 examples of **AdvBench-Audio** in `datasets/advbench_audios`.
  The **full dataset** is hosted on Hugging Face:
